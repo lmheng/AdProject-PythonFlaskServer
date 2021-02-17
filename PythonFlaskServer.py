@@ -11,8 +11,9 @@ model = pickle.load(open('PythonLogRegModel.pkl', 'rb'))
 @app.route('/results', methods=['POST'])
 def results():
     data = request.json
+    print(type(data['ques']))
     print("data is", format(data))
-    prediction = model.predict([np.array(list(data.values()), dtype="int32")])
+    prediction = model.predict([np.array(data['ques'], dtype="int32")])
     output = prediction[0]
     return jsonify(output)
 
